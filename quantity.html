@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lot Size Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .radio-inline {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Lot Size Calculator</h2>
+
+    <label>Account Balance</label>
+    <input type="number" id="balance" placeholder="Enter Balance">
+
+    <label>Risk %</label>
+    <input type="number" id="risk" placeholder="Enter Risk Percentage">
+
+    <label>Stoploss (Pips)</label>
+    <input type="number" id="sl" placeholder="Enter SL in Pips">
+
+    <button onclick="calculateLot()">Calculate Quantity</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function calculateLot() {
+    let balance = parseFloat(document.getElementById("balance").value);
+    let riskPercent = parseFloat(document.getElementById("risk").value);
+    let slPips = parseFloat(document.getElementById("sl").value);
+
+    if (isNaN(balance) || isNaN(riskPercent) || isNaN(slPips) || slPips <= 0) {
+        document.getElementById("result").innerText = "Please enter valid values.";
+        return;
+    }
+
+    let riskAmount = balance * (riskPercent / 100);
+    let quantity = riskAmount / slPips;
+    let finalQuantity = quantity / 10; // decimal shift
+
+    document.getElementById("result").innerText = 
+        "Calculated Quantity (Lot Size): " + finalQuantity.toFixed(2);
+}
+</script>
+
+</body>
+</html>
