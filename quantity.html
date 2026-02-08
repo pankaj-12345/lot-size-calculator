@@ -96,8 +96,12 @@ function calculateLot() {
     let quantity = riskAmount / slPips;
     let finalQuantity = quantity / 10; // decimal shift
 
-    document.getElementById("result").innerText = 
-        "Calculated Quantity (Lot Size): " + finalQuantity.toFixed(2);
+  let pipValuePerLot = 10; // for Forex: $10 per pip per 1.00 lot
+let slUsdLoss = finalQuantity * pipValuePerLot * slPips;
+
+document.getElementById("result").innerText = 
+    "Calculated Quantity (Lot Size): " + finalQuantity.toFixed(2) + 
+    "\nSL Loss (USD): $" + slUsdLoss.toFixed(2);
 }
 </script>
 
